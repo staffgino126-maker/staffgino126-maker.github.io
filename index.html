@@ -1,327 +1,318 @@
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>刘博 - 个人主页</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Noto Sans SC', sans-serif;
-      background-color: #121212;
-    }
-
-    /* 1. 更柔和的辉光效果 */
-    .cyber-glow {
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 20px rgba(0, 170, 255, 0.5);
-    }
-
-    /* 2. 导航栏样式 */
-    .navbar {
-      transition: background-color 0.4s ease;
-    }
-    .navbar-scrolled {
-      background-color: rgba(18, 18, 18, 0.8);
-      backdrop-filter: blur(10px);
-    }
-    .nav-link {
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    .nav-link:after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #fff;
-      transition: width 0.3s ease;
-    }
-    .nav-link.active:after, .nav-link:hover:after {
-      width: 100%;
-    }
-    .nav-link.active {
-      color: #fff;
-    }
-
-    /* 3. 更丝滑的入场动画 */
-    .reveal {
-      position: relative;
-      transform: translateY(80px);
-      opacity: 0;
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
-    }
-    .reveal.active {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* 作品集卡片悬停效果 (保持不变) */
-    .portfolio-card {
-      position: relative;
-      overflow: hidden;
-      border: 2px solid transparent;
-      transition: border-color 0.5s ease;
-    }
-    .portfolio-card:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: left 0.6s ease;
-    }
-    .portfolio-card:hover:before {
-      left: 100%;
-    }
-    .portfolio-card:hover {
-      border-color: rgba(255, 255, 255, 0.7);
-    }
-
-    /* 动态星空背景Canvas */
-    #starfield {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    /* 4. 页面预加载动画 */
-    #loader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: #121212;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘博 - 个人主页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 关键修改：将 Google Fonts 替换为国内镜像CDN -->
+    <link href="https://fonts.baomitu.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto 'Noto Sans SC', sans-serif;
+            background-color: #121212;
+        }
+        
+        /* ... 其余CSS样式保持不变 ... */
+        .cyber-glow {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 20px rgba(0, 170, 255, 0.5);
+        }
+        .navbar {
+            transition: background-color 0.4s ease;
+        }
+        .navbar-scrolled {
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        .nav-link.active:after, .nav-link:hover:after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: #fff;
+        }
+        .reveal {
+            position: relative;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
+        }
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .portfolio-card {
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.5s ease;
+        }
+        .portfolio-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+        .portfolio-card:hover:before {
+            left: 100%;
+        }
+        .portfolio-card:hover {
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        #starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: #121212;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="text-gray-200">
 
-<!-- 预加载动画 -->
-<div id="loader">
-  <div class="spinner"></div>
-</div>
-
-<!-- 导航栏 -->
-<nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 p-4">
-  <div class="container mx-auto flex justify-center items-center">
-    <div class="flex space-x-8 text-gray-400 font-medium">
-      <a href="#home" class="nav-link active">首页</a>
-      <a href="#about" class="nav-link">关于</a>
-      <a href="#portfolio" class="nav-link">作品</a>
-      <a href="#contact" class="nav-link">联系</a>
+    <!-- 预加载动画 -->
+    <div id="loader">
+        <div class="spinner"></div>
     </div>
-  </div>
-</nav>
-
-<!-- Hero Section -->
-<header id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-black">
-  <canvas id="starfield"></canvas>
-  <div class="z-10 relative">
-    <h1 class="text-5xl md:text-7xl font-bold tracking-tight reveal cyber-glow">你好, 我是 <span class="text-white">刘博</span></h1>
-    <p class="mt-4 text-lg md:text-2xl font-light reveal text-gray-300" style="transition-delay: 200ms;">一位充满热情的圆头基米</p>
-    <a href="#about" class="mt-8 inline-block bg-white text-black font-semibold py-3 px-8 rounded-full text-lg shadow-2xl shadow-white/20 hover:bg-gray-200 transition duration-300 transform hover:scale-105 reveal" style="transition-delay: 400ms;">了解更多</a>
-  </div>
-</header>
-
-<!-- About Section -->
-<section id="about" class="py-20 lg:py-32 bg-gray-900">
-  <div class="container mx-auto px-6 lg:px-8">
-    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-      <div class="w-full lg:w-1/3 reveal">
-        <img src="img/我的头像.jpg" alt="个人照片" class="rounded-full shadow-2xl shadow-white/10 mx-auto border-8 border-gray-800">
-      </div>
-      <div class="w-full lg:w-2/3 text-center lg:text-left reveal" style="transition-delay: 200ms;">
-        <h2 class="text-4xl font-bold text-white cyber-glow mb-4">关于我</h2>
-        <p class="text-lg text-gray-400 leading-relaxed mb-4">
-          普通又不普通，聪明又有一点笨的圆头基米，拥有爱我的家人、世界上最美的女朋友以及一只🐈。
-        </p>
-        <p class="text-lg text-gray-400 leading-relaxed">
-          尼康佬，足球业余8段，基米爱好者，我有一个梦想☝️。
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Portfolio Section -->
-<section id="portfolio" class="py-20 lg:py-32 bg-[#121212]">
-  <div class="container mx-auto px-6 lg:px-8">
-    <div class="text-center mb-16 reveal">
-      <h2 class="text-4xl font-bold text-white cyber-glow mb-4">我的作品集</h2>
-      <p class="text-lg text-gray-400 max-w-2xl mx-auto">这里是我过往项目中一些精选的作品。将鼠标悬停在图片上查看更多信息。</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-      <div class="group relative rounded-xl shadow-lg reveal portfolio-card">
-        <img src="img/景色1.JPG" alt="作品1" class="w-full h-full object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl">
-          <h3 class="text-white text-2xl font-bold">阿拉桑海宁！</h3>
+    
+    <!-- 导航栏 -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="container mx-auto flex justify-center items-center">
+            <div class="flex space-x-8 text-gray-400 font-medium">
+                <a href="#home" class="nav-link active">首页</a>
+                <a href="#about" class="nav-link">关于</a>
+                <a href="#portfolio" class="nav-link">作品</a>
+                <a href="#contact" class="nav-link">联系</a>
+            </div>
         </div>
-      </div>
-      <div class="group relative rounded-xl shadow-lg reveal portfolio-card" style="transition-delay: 200ms;">
-        <img src="img/景色2.JPG" alt="作品2" class="w-full h-full object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl">
-          <h3 class="text-white text-2xl font-bold">月酿</h3>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden bg-black">
+        <canvas id="starfield"></canvas>
+        <div class="z-10 relative">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight reveal cyber-glow">你好, 我是 <span class="text-white">刘博</span></h1>
+            <p class="mt-4 text-lg md:text-2xl font-light reveal text-gray-300" style="transition-delay: 200ms;">一位充满热情的圆头基米</p>
+            <a href="#about" class="mt-8 inline-block bg-white text-black font-semibold py-3 px-8 rounded-full text-lg shadow-2xl shadow-white/20 hover:bg-gray-200 transition duration-300 transform hover:scale-105 reveal" style="transition-delay: 400ms;">了解更多</a>
         </div>
-      </div>
-      <div class="group relative rounded-xl shadow-lg reveal portfolio-card" style="transition-delay: 400ms;">
-        <img src="img/景色3.JPG" alt="作品3" class="w-full h-full object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-500">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl">
-          <h3 class="text-white text-2xl font-bold">金将军</h3>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 lg:py-32 bg-gray-900">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                <div class="w-full lg:w-1/3 reveal">
+                    <img src="img/我的头像.jpg" alt="个人照片" class="rounded-full shadow-2xl shadow-white/10 mx-auto border-8 border-gray-800">
+                </div>
+                <div class="w-full lg:w-2/3 text-center lg:text-left reveal" style="transition-delay: 200ms;">
+                    <h2 class="text-4xl font-bold text-white cyber-glow mb-4">关于我</h2>
+                    <p class="text-lg text-gray-400 leading-relaxed mb-4">
+                        普通又不普通，聪明又有一点笨的圆头基米，拥有爱我的家人、世界上最美的女朋友以及一只🐈。
+                    </p>
+                    <p class="text-lg text-gray-400 leading-relaxed">
+                        尼康佬，足球业余8段，基米爱好者，我有一个梦想☝️。
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- Contact Footer -->
-<footer id="contact" class="bg-black py-12">
-  <div class="container mx-auto px-6 lg:px-8 text-center">
-    <h2 class="text-3xl font-bold mb-4 cyber-glow">联系我</h2>
-    <p class="text-gray-400 mb-6 max-w-md mx-auto">期待与你交流！你可以通过下面的邮箱联系到我。</p>
-    <a href="mailto:your.email@example.com" class="text-white text-xl font-semibold hover:text-blue-300 transition duration-300">jimi.email@jimi.com</a>
-    <p class="mt-8 text-sm text-gray-500">&copy; 2025 刘博. All Rights Reserved.</p>
-  </div>
-</footer>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 lg:py-32 bg-[#121212]">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-bold text-white cyber-glow mb-4">我的作品集</h2>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">这里是我过往项目中一些精选的作品。将鼠标悬停在图片上查看更多信息。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                <div class="group relative rounded-xl shadow-lg reveal portfolio-card">
+                    <img src="img/景色1.JPG" alt="作品1" class="w-full h-full object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl">
+                        <h3 class="text-white text-2xl font-bold">阿拉桑海宁！</h3>
+                    </div>
+                </div>
+                <div class="group relative rounded-xl shadow-lg reveal portfolio-card" style="transition-delay: 200ms;">
+                    <img src="img/景色2.JPG" alt="作品2" class="w-full h-full object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl">
+                        <h3 class="text-white text-2xl font-bold">月酿</h3>
+                    </div>
+                </div>
+                <div class="group relative rounded-xl shadow-lg reveal portfolio-card" style="transition-delay: 400ms;">
+                    <img src="img/景色3.JPG" alt="作品3" class="w-full h-full object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl">
+                        <h3 class="text-white text-2xl font-bold">金将军</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-  // 页面预加载
-  window.onload = function() {
-    const loader = document.getElementById('loader');
-    loader.style.opacity = '0';
-    loader.style.visibility = 'hidden';
-  };
+    <!-- Contact Footer -->
+    <footer id="contact" class="bg-black py-12">
+        <div class="container mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4 cyber-glow">联系我</h2>
+            <p class="text-gray-400 mb-6 max-w-md mx-auto">期待与你交流！你可以通过下面的邮箱联系到我。</p>
+            <a href="mailto:your.email@example.com" class="text-white text-xl font-semibold hover:text-blue-300 transition duration-300">your.email@example.com</a>
+            <p class="mt-8 text-sm text-gray-500">&copy; 2025 刘博. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-  // 导航栏滚动效果 & 智能高亮
-  const navbar = document.getElementById('navbar');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section, header');
+    <script>
+        // 页面预加载
+        window.onload = function() {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
+        };
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('navbar-scrolled');
-    } else {
-      navbar.classList.remove('navbar-scrolled');
-    }
+        // 导航栏滚动效果 & 智能高亮
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section, header');
 
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (pageYOffset >= sectionTop - 100) {
-        current = section.getAttribute('id');
-      }
-    });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href').includes(current)) {
-        link.classList.add('active');
-      }
-    });
-  });
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-  // 滚动入场动画
-  function reveal() {
-    const reveals = document.querySelectorAll(".reveal");
-    for (let i = 0; i < reveals.length; i++) {
-      const windowHeight = window.innerHeight;
-      const elementTop = reveals[i].getBoundingClientRect().top;
-      const elementVisible = 50;
-      if (elementTop < windowHeight - elementVisible) {
-        reveals[i].classList.add("active");
-      }
-    }
-  }
-  window.addEventListener("scroll", reveal);
-  reveal();
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
-  // 动态星空背景
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
+        // 滚动入场动画
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 50;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+        // 动态星空背景
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
 
-  const stars = [];
-  const numStars = 300;
-  const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      z: Math.random() * canvas.width,
-    });
-  }
+        const stars = [];
+        const numStars = 300;
+        const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
 
-  function update() {
-    for (let i = 0; i < numStars; i++) {
-      stars[i].z -= 1.5; // Speed up slightly for more dynamism
-      if (stars[i].z <= 0) {
-        stars[i].z = canvas.width;
-      }
-    }
-  }
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                z: Math.random() * canvas.width,
+            });
+        }
 
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    ctx.beginPath();
-    for (let i = 0; i < numStars; i++) {
-      let star = stars[i];
-      let k = 128 / star.z;
-      let px = (star.x - mouse.x) * k + mouse.x;
-      let py = (star.y - mouse.y) * k + mouse.y;
-      let r = 1.5 * k;
-      ctx.moveTo(px, py);
-      ctx.arc(px, py, r, 0, Math.PI * 2);
-    }
-    ctx.fill();
-  }
+        function update() {
+            for (let i = 0; i < numStars; i++) {
+                stars[i].z -= 1.5;
+                if (stars[i].z <= 0) {
+                    stars[i].z = canvas.width;
+                }
+            }
+        }
 
-  function animate() {
-    update();
-    draw();
-    requestAnimationFrame(animate);
-  }
-  animate();
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.beginPath();
+            for (let i = 0; i < numStars; i++) {
+                let star = stars[i];
+                let k = 128 / star.z;
+                let px = (star.x - mouse.x) * k + mouse.x;
+                let py = (star.y - mouse.y) * k + mouse.y;
+                let r = 1.5 * k;
+                ctx.moveTo(px, py);
+                ctx.arc(px, py, r, 0, Math.PI * 2);
+            }
+            ctx.fill();
+        }
 
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-</script>
+        function animate() {
+            update();
+            draw();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+    </script>
 </body>
 </html>
 
