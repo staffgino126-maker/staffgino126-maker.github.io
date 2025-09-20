@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>刘博 - 个人主页</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 关键修改：将 Google Fonts 替换为国内镜像CDN -->
     <link href="https://fonts.baomitu.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
     <style>
         body {
-            font-family: 'Noto 'Noto Sans SC', sans-serif;
+            font-family: 'Noto Sans SC', sans-serif;
             background-color: #121212;
         }
-        
-        /* ... 其余CSS样式保持不变 ... */
         .cyber-glow {
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 20px rgba(0, 170, 255, 0.5);
         }
@@ -87,39 +82,13 @@
             height: 100%;
             z-index: 1;
         }
-        #loader {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: #121212;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        /* 移除了加载动画相关的CSS */
     </style>
 </head>
 <body class="text-gray-200">
-
-    <!-- 预加载动画 -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
     
+    <!-- 移除了加载动画的HTML -->
+
     <!-- 导航栏 -->
     <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 p-4">
         <div class="container mx-auto flex justify-center items-center">
@@ -203,12 +172,7 @@
     </footer>
 
     <script>
-        // 页面预加载
-        window.onload = function() {
-            const loader = document.getElementById('loader');
-            loader.style.opacity = '0';
-            loader.style.visibility = 'hidden';
-        };
+        // 移除了加载动画相关的JavaScript
 
         // 导航栏滚动效果 & 智能高亮
         const navbar = document.getElementById('navbar');
@@ -251,6 +215,7 @@
             }
         }
         window.addEventListener("scroll", reveal);
+        // 页面加载时立即执行一次，确保首屏元素可见
         reveal();
 
         // 动态星空背景
